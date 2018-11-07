@@ -1,25 +1,30 @@
 $(document).ready(function() {
     $('#map').usmap({
-	'stateSpecificStyles': {
-	    'AK' : {fill: '#f00'}
-	},
+	 'stateSpecificStyles': {
+	    'CA' : {fill: '#0f0'}
+	}, 
+	
 	'stateSpecificHoverStyles': {
-	    'HI' : {fill: '#ff0'}
+	    'CA' : {fill: '#ff0'}
 	},
 	
 	'mouseoverState': {
 	    'HI' : function(event, data) {
-	        //return false;
+		console.log("You are mousing over HI. Aloha!")
 	    }
 	},
 	
 	
 	'click' : function(event, data) {
-	    $('#alert')
-	        .text('Click '+data.name+' on map 1')
+	    state = data.name
+	    $.get( "capital/" + state, function( data ) {
+		$('#alert')
+	          .text('The capital of '+state+' is ' + data)
 	        .stop()
 	        .css('backgroundColor', '#ff0')
 	        .animate({backgroundColor: '#ddd'}, 1000);
+	    });
+	    
 	}
     });
     
